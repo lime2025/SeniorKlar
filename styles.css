@@ -1,5 +1,34 @@
 /* Her her vi et sted at lave css*/
- header {
+:root {
+  --boxsize: 100px;
+  --lettersize: calc(var(--boxsize) * 0.9);
+}
+
+body {
+  margin: 0px;
+}
+
+
+.board {
+  width: 100vw;
+  height: 65vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.box {
+  width: var(--boxsize);
+  height: var(--boxsize);
+  border: 2px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+header {
     background-color: #9743ad;
     padding: 30px;
     text-align: center;
@@ -7,4 +36,37 @@
     color: white;
     font-style: initial;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.winning-message {
+  display: grid;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-size: 4rem;
+  flex-direction: column;
+}
+
+.winning-message button {
+  font-size: 2rem;
+  border: 2px solid blue;
+  border-radius: 10%;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  color: blue;
+  background-color: white;
+}
+
+.winning-message button:hover {
+  font-size: 2rem;
+  border: 2px solid white;
+  border-radius: 10%;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  color: white;
+  background-color: blue;
 }
