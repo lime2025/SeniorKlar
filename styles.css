@@ -1,72 +1,842 @@
-/* Her her vi et sted at lave css*/
-:root {
-  --boxsize: 100px;
-  --lettersize: calc(var(--boxsize) * 0.9);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0px;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135dseg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
 }
 
-
-.board {
-  width: 100vw;
-  height: 65vh;
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  grid-template-columns: repeat(3, auto);
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
-.box {
-  width: var(--boxsize);
-  height: var(--boxsize);
-  border: 2px solid blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #667eea;
+    position: relative;
 }
 
-header {
-    background-color: #9743ad;
+.header h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.admin-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.admin-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.admin-button:active {
+    transform: scale(0.95);
+}
+
+.flame-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.flame {
+    font-size: 4rem;
+    transition: transform 0.3s, filter 0.3s;
+    filter: grayscale(100%) opacity(0.3);
+}
+
+.flame.active {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.2);
+    animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { transform: scale(1.2) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(5deg); }
+}
+
+.flame-text {
+    font-size: 1.5rem;
+    color: #666;
+    font-weight: bold;
+}
+
+/* Progress Section */
+.progress-section {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.progress-section h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.progress-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    border: 4px solid #ccc;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.progress-item.completed .progress-circle {
+    background-color: #4caf50;
+    border-color: #45a049;
+}
+
+.progress-item.completed .progress-circle::after {
+    content: "✓";
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.progress-item span {
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Games Section */
+.games-section {
+    margin-top: 40px;
+}
+
+.games-section h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.game-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
     padding: 30px;
     text-align: center;
-    font-size: 35px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 3px solid transparent;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.game-card.completed {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+}
+
+.game-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+}
+
+.game-status.completed {
+    color: #4caf50;
+}
+
+.game-card h3 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.game-card p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.play-button {
+    background-color: #667eea;
     color: white;
-    font-style: initial;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
 }
 
-.winning-message {
-  display: grid;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  font-size: 4rem;
-  flex-direction: column;
+.play-button:hover {
+    background-color: #5568d3;
+    transform: scale(1.05);
 }
 
-.winning-message button {
-  font-size: 2rem;
-  border: 2px solid blue;
-  border-radius: 10%;
-  padding: 0.25em 0.5em;
-  cursor: pointer;
-  color: blue;
-  background-color: white;
+.play-button:active {
+    transform: scale(0.95);
 }
 
-.winning-message button:hover {
-  font-size: 2rem;
-  border: 2px solid white;
-  border-radius: 10%;
-  padding: 0.25em 0.5em;
-  cursor: pointer;
-  color: white;
-  background-color: blue;
+.play-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Game Modals */
+.game-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.game-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.close-button:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-content h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.game-instructions {
+    font-size: 1.3rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.game-stats {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Number Sequence Game */
+.number-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.number-card {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.number-card:hover {
+    transform: scale(1.1);
+}
+
+.number-card.clicked {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    cursor: default;
+    transform: scale(0.95);
+}
+
+/* Number Memory Game (Huske spil) */
+.number-memory-area {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.number-display {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 20px 0 30px;
+    min-height: 90px;
+    letter-spacing: 6px;
+}
+
+.number-input {
+    font-size: 2.5rem;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 3px solid #667eea;
+    width: min(420px, 90%);
+    margin: 0 auto;
+    text-align: center;
+    outline: none;
+}
+
+.number-memory-area .play-button {
+    display: block;
+    margin: 14px auto 0;
+}
+
+.number-input:focus {
+    border-color: #5568d3;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.number-result {
+    font-size: 1.8rem;
+    margin-top: 18px;
+    color: #2e7d32;
+    min-height: 40px;
+    font-weight: bold;
+}
+
+.number-result.wrong {
+    color: #c62828;
+}
+
+.number-restart {
+    margin-top: 14px;
+    background-color: #e74c3c;
+}
+
+.number-restart:hover {
+    background-color: #c0392b;
+}
+
+.number-finish {
+    margin-top: 10px;
+    background-color: #4caf50;
+}
+
+.number-finish:hover {
+    background-color: #45a049;
+}
+
+
+.target-shape {
+    font-size: 6rem;
+    margin-bottom: 30px;
+}
+
+.shape-label {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.shape-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.shape-option {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border: 4px solid #333;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.shape-option:hover {
+    transform: scale(1.1);
+    border-color: #667eea;
+}
+
+.shape-option.correct {
+    border-color: #4caf50;
+    border-width: 6px;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+}
+
+.shape-option.wrong {
+    border-color: #f44336;
+    border-width: 6px;
+    animation: shake 0.5s;
+}
+
+
+
+.pattern-board {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+.pattern-button-item {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    border: 4px solid #333;
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+}
+
+.pattern-button-item:hover {
+    transform: scale(1.05);
+}
+
+.pattern-button-item.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+    opacity: 1;
+}
+
+.pattern-button-item.clicked {
+    transform: scale(0.9);
+}
+
+.pattern-controls {
+    margin: 20px 0;
+}
+
+.pattern-button {
+    background-color: #667eea;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.pattern-button:hover {
+    background-color: #5568d3;
+}
+
+
+.pattern-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Math Game */
+.math-game-area {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.math-problem {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 40px;
+}
+
+.math-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.math-option {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    transition: transform 0.3s, background-color 0.3s;
+    border: 4px solid transparent;
+}
+
+.math-option:hover {
+    transform: scale(1.1);
+}
+
+.math-option.correct {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    border-color: #4caf50;
+    cursor: default;
+}
+
+.math-option.wrong {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    border-color: #f44336;
+    animation: shake 0.5s;
+}
+
+/* Vendespil (Memory pairs) */
+.vende-area {
+    margin: 20px 0;
+}
+
+.vende-grid {
+    display: grid;
+    gap: 14px;
+    justify-content: center;
+    grid-template-columns: repeat(6, 110px);
+}
+
+.vende-card {
+    height: 140px;
+    width: 110px;
+    border-radius: 14px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    perspective: 900px;
+}
+
+.vende-inner {
+    height: 100%;
+    width: 100%;
+    border-radius: 14px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+}
+
+.vende-card.flipped .vende-inner,
+.vende-card.matched .vende-inner {
+    transform: rotateY(180deg);
+}
+
+.vende-front,
+.vende-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vende-front {
+    transform: rotateY(180deg);
+    background: #fff;
+    border: 4px solid #333;
+    font-size: 3.5rem;
+    overflow: hidden;
+}
+
+.vende-front-image {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+.vende-back {
+    border: 4px solid #333;
+    background-image: radial-gradient(circle at 20% 20%, rgba(78, 205, 196, 0.9) 0 12%, transparent 13%),
+        radial-gradient(circle at 70% 40%, rgba(69, 183, 209, 0.9) 0 10%, transparent 11%),
+        radial-gradient(circle at 40% 75%, rgba(102, 126, 234, 0.9) 0 12%, transparent 13%),
+        linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    background-size: 100% 100%;
+}
+
+.vende-card:focus-visible .vende-inner {
+    outline: 4px solid rgba(102, 126, 234, 0.6);
+    outline-offset: 4px;
+}
+
+.vende-card.matched {
+    cursor: default;
+    opacity: 0.9;
+}
+
+.vende-footer {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.vende-score {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.vende-restart {
+    background-color: #27ae60;
+}
+
+.vende-restart:hover {
+    background-color: #219150;
+}
+
+/* Tic Tac Toe */
+.tictac-area {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.tictac-board {
+    width: 306px;  /* 3 x 100px squares + 3 x 2px internal borders */
+    height: 306px;
+    margin: 0 auto 20px;
+    background-color: #fff;  /* keep board fully white */
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid #000;
+}
+
+.tictac-square {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.tictac-square.circle {
+    position: relative;
+}
+
+.tictac-square.circle::before {
+    content: "";
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: 12px solid #2962ff;
+    box-sizing: border-box;
+}
+
+.tictac-square.cross {
+    position: relative;
+}
+
+.tictac-square.cross::before,
+.tictac-square.cross::after {
+    content: "";
+    position: absolute;
+    background-color: #e53935;
+    border-radius: 6px;
+}
+
+.tictac-square.cross::before {
+    width: 14px;
+    height: 80px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.tictac-square.cross::after {
+    width: 14px;
+    height: 80px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+.tictac-status {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.tictac-reset {
+    margin-top: 0;
+}
+
+/* Visual Memory Game */
+.visual-memory-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.visual-info {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.visual-grid {
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.visual-tile {
+    width: 70px;
+    height: 70px;
+    background: #999;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.visual-tile.active {
+    background: #ffd500;
+}
+
+.visual-tile.correct {
+    background: #4caf50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .flame {
+        font-size: 3rem;
+    }
+
+    .progress-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .number-board {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .vende-grid {
+        grid-template-columns: repeat(3, 95px);
+        gap: 12px;
+    }
+
+    .vende-card {
+        height: 120px;
+        width: 95px;
+    }
+
+    .vende-front {
+        font-size: 3rem;
+    }
 }

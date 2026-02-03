@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daglige Spil - Senior Klar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Senior Klar</h1>
+            <div class="flame-container">
+                <div class="flame" id="flame">
+                    <div class="flame-icon">🔥</div>
+                </div>
+                <p class="flame-text">Klar alle 3 spil!</p>
+            </div>
+            <button class="admin-button" onclick="resetDailyGames()" title="Admin: Nulstil til 3 nye spil">🔄 Nulstil spil</button>
+        </header>
+
+     
+        <!-- Written at 2 AM, proceed with caution
+ Powered by coffee and questionable decisions
+ I should be asleep right now -->
+ <!--Help me... please...   -->
+ 
+        <div class="progress-section">
+            <h2>Dagens Progress</h2>
+            <div class="progress-row" id="progressRow">
+                <div class="progress-item" data-game="0">
+                    <div class="progress-circle"></div>
+                    <span>Spil 1</span>
+                </div>
+                <div class="progress-item" data-game="1">
+                    <div class="progress-circle"></div>
+                    <span>Spil 2</span>
+                </div>
+                <div class="progress-item" data-game="2">
+                    <div class="progress-circle"></div>
+                    <span>Spil 3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Games Section -->
+        <div class="games-section">
+            <h2>Spil dine spil!</h2>
+            <div class="games-grid" id="games-grid">
+                <!-- Games will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Game Modals - Dynamically created -->
+        <div id="game-modals-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
